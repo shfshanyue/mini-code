@@ -22,7 +22,13 @@ class Application {
     const server = http.createServer(async (req, res) => {
       const ctx = new Context(req, res)
       const fn = compose(this.middlewares)
-      await fn(ctx)
+      try {
+        await fn(ctx)
+      } catch (e) {
+        console.error(e)
+        ctx.res.statusCode = 500
+        ctx.res.end('Internel Server Error')
+      }
       ctx.res.end(ctx.body)
     })
     server.listen(...args)
