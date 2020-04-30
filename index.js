@@ -13,13 +13,25 @@ function compose (middlewares) {
   }
 }
 
+class Context {
+  constructor (req, res) {
+    this.req = req
+    this.res = res
+  }
+}
+
 class Application {
   constructor () {
     this.middlewares = []
   }
 
   listen (...args) {
-    const server = http.createServer(async (req, res) => {
+    const server = http.createServer(this.callback())
+    server.listen(...args)
+  }
+
+  callback () {
+    return async (req, res) => {
       const ctx = new Context(req, res)
       const fn = compose(this.middlewares)
       try {
@@ -30,8 +42,7 @@ class Application {
         ctx.res.end('Internel Server Error')
       }
       ctx.res.end(ctx.body)
-    })
-    server.listen(...args)
+    }
   }
 
   use (middleware) {
@@ -39,29 +50,5 @@ class Application {
   }
 }
 
-class Context {
-  constructor (req, res) {
-    this.req = req
-    this.res = res
-  }
-}
+module.exports = Application
 
-// Example
-
-const app = new Application()
-
-app.use(async (ctx, next) => {
-  console.log('Middleware 1 Start')
-  await next()
-  console.log('Middleware 1 End')
-})
-
-app.use(async (ctx, next) => {
-  console.log('Middleware 2 Start')
-  await next()
-  console.log('Middleware 2 End')
-
-  ctx.body = 'hello, world'
-})
-
-app.listen(7000)
