@@ -38,21 +38,25 @@ exports.add = function() {
 };
 ```
 
+### 04. hello.js
+
+``` js
+module.exports = 'hello, world'
+```
+
 ## 打包后骨架代码与解析
 
-![image](https://cdn.jsdelivr.net/gh/shfshanyue/assets@master/src/image.ayrao1zd6ko.png)
+![webpack5 打包后文件](https://cdn.jsdelivr.net/gh/shfshanyue/assets@master/src/image.ayrao1zd6ko.png)
 
 为了显示方便并便于理解，这里直接展示为最简化代码，把用于隔离作用域的所有 IIFE 都给去掉。
 
 ``` js
 const modules = []
+
 const moduleCache = {}
 function webpackRequire (moduleId) {}
 
-// 以下为 index.js 中的代码，直接执行
-const inc = webpackRequire(1).increment;
-const a = 1;
-inc(a);
+webpackRequire(0)
 ```
 
 ## `modules`
@@ -86,11 +90,12 @@ const modules = [
 ]
 ```
 
-## 确定依赖关系树
+### 确定依赖关系树
 
 + `index.js` -> 1
   + `increment.js` -> 2
     + `math.js`    -> 3
+  + `hello.js`     -> 4
   
 对于以下依赖树，由于 JS 执行查找模块为深度优先搜索遍历，对所有模块构造一个以深度优先的树。
 
@@ -102,11 +107,11 @@ const modules = [
   + E    -> 6
   + F    -> 7
 
-## 依赖关系树的构建
+### 依赖关系树的构建
 
 **如何遍历所有的 require，确认模块依赖树？**
 
-### `webpackRequire`
+## `webpackRequire`
 
 ``` js
 function __webpack_require__(moduleId) {
@@ -143,4 +148,13 @@ function webpackRequire (moduleId) {
   cacheModule[moduleId]
   return targetModule.exports
 }
+```
+
+## 效果
+
+``` bash
+$ node example.js > output.js
+
+$ node output.js
+2
 ```

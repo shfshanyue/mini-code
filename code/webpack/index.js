@@ -65,7 +65,7 @@ function createBundleTemplate (entry) {
 // 统一扔到块级作用域中，避免污染全局变量
 {
   const modules = [
-    ${modules.map(m => createModuleWrapper(m.code, moduleMapping))}
+    ${modules.map(m => createModuleWrapper(m.code))}
   ]  
 
   const cacheModules = {}
@@ -89,4 +89,5 @@ function bundle (entry) {
   return createBundleTemplate(entry)
 }
 
-console.log(bundle('./example/index.js'))
+module.exports = bundle
+

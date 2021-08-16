@@ -1,4 +1,4 @@
-const { match } = require("path-to-regexp")
+const { match } = require('path-to-regexp')
 
 const router = {
   get(path, requestListener) {
