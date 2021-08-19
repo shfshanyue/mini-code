@@ -3,9 +3,17 @@
 > 已实现功能：
 > 1. 打包 Commonjs
 > 1. 打包 Module (TODO)
-> 1. 按需加载 Chunk (TODO)
 
 + `webpack` 打包后的文件长什么样子
+
+## 代码
+
+``` bash
+$ node example.js > output.js
+
+$ node output.js
+2
+```
 
 ## 本次待打包文件
 
@@ -96,7 +104,7 @@ const modules = [
   + `increment.js` -> 2
     + `math.js`    -> 3
   + `hello.js`     -> 4
-  
+
 对于以下依赖树，由于 JS 执行查找模块为深度优先搜索遍历，对所有模块构造一个以深度优先的树。
 
 + entry  -> 1
@@ -135,8 +143,6 @@ function __webpack_require__(moduleId) {
 }
 ```
 
-注意 `module` 在 Node 中是一个关键字，尽量避免使用。
-
 ``` js
 function webpackRequire (moduleId) {
   const cacheModule = moduleCache[moduleId]
@@ -150,11 +156,3 @@ function webpackRequire (moduleId) {
 }
 ```
 
-## 效果
-
-``` bash
-$ node example.js > output.js
-
-$ node output.js
-2
-```
