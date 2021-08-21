@@ -4,7 +4,7 @@
 
 对于源码，将尽可能注释每一行代码，并以文章讲述原理与实现过程。目前已实现列表为:
 
-+ [mini-koa](./code/webpack/Readme.md)
++ [mini-koa](./code/koa/Readme.md)
 + [mini-webpack](./code/webpack/Readme.md)
 
 ## TODO
