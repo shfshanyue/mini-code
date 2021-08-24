@@ -1,10 +1,11 @@
 {
   "name": "webpack",
+  "private": true,
   "version": "1.0.0",
-  "description": "+ `webpack` 打包后的文件长什么样子",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "example": "node example.js > output.js"
   },
   "author": "shfshanyue",
   "license": "ISC",

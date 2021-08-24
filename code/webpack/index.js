@@ -84,29 +84,20 @@ function buildModule (filename) {
 //     { id: 2, filename: C, deps: [] },
 //   ]
 // }
-// 
-// ====> 代码由以上转为以下
-// 
+// ====> 该函数把数据结构由以上转为以下
 // [
 //   { id: 0, filename: A }
 //   { id: 1, filename: B }
 //   { id: 2, filename: C }
 // ]
-function buildModuleQueue (entry) {
-  const moduleTree = buildModule(entry)
-  const moduleQueue = []
-  buildQueue(moduleTree)
-  return moduleQueue
+function moduleTreeToQueue (moduleTree) {
+  const { deps, ...module } = moduleTree
 
-  function buildQueue (module) {
-    moduleQueue.push(module)
-    if (!module.deps.length) {
-      return
-    }
-    for (const m of module.deps) {
-      buildQueue(m)
-    }
-  }
+  const moduleQueue = deps.reduce((acc, m) => {
+    return acc.concat(moduleTreeToQueue(m))
+  }, [module])
+
+  return moduleQueue
 }
 
 // 构建一个浏览器端中虚假的 Commonjs Wrapper
@@ -122,7 +113,8 @@ function createModuleWrapper (code) {
 // 根据入口文件进行打包，也是 mini-webpack 的入口函数
 function createBundleTemplate (entry) {
   // 如同 webpack 中的 __webpack_modules__，以数组的形式存储项目所有依赖的模块
-  const modules = buildModuleQueue(entry)
+  const moduleTree = buildModule(entry)
+  const modules = moduleTreeToQueue(moduleTree)
 
   // 生成打包的模板，也就是打包的真正过程
   return `
@@ -162,4 +154,3 @@ function createBundleTemplate (entry) {
 }
 
 module.exports = createBundleTemplate
-
