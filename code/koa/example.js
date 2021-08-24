@@ -16,4 +16,7 @@ app.use(async (ctx, next) => {
   ctx.body = 'hello, world'
 })
 
-app.listen(7000)
+
+app.listen(7000, () => {
+  console.log('Listing 7000...')
+})

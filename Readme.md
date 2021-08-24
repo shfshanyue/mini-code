@@ -4,15 +4,27 @@
 
 对于源码，将尽可能注释每一行代码，并以文章讲述原理与实现过程。目前已实现列表为:
 
-+ [mini-koa](./code/koa/Readme.md)
-+ [mini-webpack](./code/webpack/Readme.md)
++ [mini-koa](./code/koa/)
++ [mini-webpack](./code/webpack/)
+
+由于目前浏览器对 ESM 已支持良好，对于客户端相关源码使用 ESM 书写，比如 vDOM、React 等。而对于服务端使用 CommonJS 书写，如 koa、express 等。
 
 ## TODO
 
-+ react
-+ react-query
-+ vite
-+ redux
-+ express
 + vdom
++ express
++ react
++ redux
++ react-query
++ use-debuounce
++ vue
++ vite
 
+## 目录结构
+
+源文件置于 `index.js` 中，示例文件置于两个位置:
+
++ `example.js`
++ `example/`
+
+关于查看示例，请使用命令 `npm run example`

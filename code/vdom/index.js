@@ -44,8 +44,17 @@ function createElementByVNode (vnode) {
 // 删除掉 element.children 中的第 [startIndex, endIndex) 个子元素
 //
 function removeVnodes (element, children, startIndex, endIndex) {
-  for (; startIndex < endIndex; startIndex++) {
-    element.removeChild(children[startIndex])
+  for (const vNode of children.slice(startIndex, endIndex + 1)) {
+    element.removeChild(vNode)
+  }
+}
+
+// 
+// 新增 element.children 中的第 [startIndex, endIndex) 个子元素
+//
+function addVnodes (element, children, startIndex, endIndex) {
+  for (const vNode of children.slice(startIndex, endIndex + 1)) {
+    element.appendChild(createElementByVNode(vNode))
   }
 }
 
@@ -102,7 +111,6 @@ function updateProps (oldVnode, newVnode) {
   function updateStyle () {
     const oldStyle = oldVnode.style
     const newStyle = newVnode.style
-    for ()
   }
 
   function updateAttributes () {
@@ -114,24 +122,17 @@ function updateProps (oldVnode, newVnode) {
   updateAttributes()
 }
 
-function updateChildren (oldVnode, newVnode) {
-  const element = oldVnode.element
-  if (oldVnode && newVnode) {
-    for (let i = 0; i < oldVnode.children?.length || 0; i++) {
-      const oldChildrenElement = oldVnode.children[i]
-      const newChildrenElement = newVnode?.children?.[i]
-      if (sameVnode(oldChildrenElement, newChildrenElement)) {
-        patchVnode(oldChildrenElement, newChildrenElement)                 
-      } else {
-         
-      }
-    }
-  } else if (oldVnode) {
+function updateChildren (element, oldChildren, newChildren) {
+  if (oldChildren && newChildren) {
 
-    // 
+  } else if (oldChildren) {
+
     // 如果仅仅在旧的虚拟节点存在 children，则需要在 DOM 中删除旧节点的所有子节点
-    //
-    removeVnodes(element, oldVnode.children, 0, oldVnode.children.length)
+    removeVnodes(element, oldChildren, 0, oldChildren.length)
+  } else if (newChildren) {
+
+    // 如果仅仅在新的虚拟节点存在 children，则需要新的虚拟节点构建 DOM 并插入到 element 下
+    addVnodes(element, newChildren, 0, newChildren.length)
   }
 }
 
@@ -141,15 +142,16 @@ function updateText (oldVnode, newVnode) {
 }
 
 // 
-// 每一次 Diff 算法:
+// 当两个 vNode 标签及 key 相同时，执行 patchVnode 进行更新
+//
 // 1. 更新 Props
-// 2. 更新 Children
+// 2. 更新 Children (重点)
 // 3. 更新 Text
 //
 function patchVnode (oldVnode, newVnode) {
   newVnode.element = oldVnode.element
   updateProps(oldVnode, newVnode)    
-  updateChildren(oldVnode, newVnode)
+  updateChildren(oldVnode.element, oldVnode.children, newVnode.children)
   updateText(oldVnode, newVnode)
 }
 
@@ -162,8 +164,4 @@ function patch (oldVnode, newVnode) {
   }
 }
 
-module.exports = {
-  h,
-  patch
-}
-
+export { patch, h }
