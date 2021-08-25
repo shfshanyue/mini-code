@@ -6,6 +6,7 @@
 
 + [mini-koa](./code/koa/)
 + [mini-express](./code/express/)
++ [mini-http-router](./code/http-router/)
 + [mini-webpack](./code/webpack/)
 
 由于目前浏览器对 ESM 已支持良好，对于客户端相关源码使用 ESM 书写，比如 vDOM、React 等。而对于服务端使用 CommonJS 书写，如 koa、express 等。
