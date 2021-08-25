@@ -1,0 +1,11 @@
+{
+  "name": "mini-express",
+  "version": "1.0.0",
+  "description": "如何实现一个最小版本的 express",
+  "main": "index.js",
+  "scripts": {
+    "example": "node example.js"
+  },
+  "author": "shfshanyue",
+  "license": "ISC"
+}
