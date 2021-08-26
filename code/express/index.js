@@ -48,6 +48,7 @@ class Router {
         res.end('NOT FOUND SHANYUE')
         return
       }
+      req.params = match.params
       layer.handle(req, res, next)
 
       // 如果所有的中间件都不匹配该路由

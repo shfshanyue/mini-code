@@ -28,4 +28,8 @@ app.get('/api',
   }
 )
 
+app.get('/api/users/:id', (req, res) => {
+  res.end(JSON.stringify({ userId: req.params.id }))
+})
+
 app.listen(3000, () => console.log('Listening 3000'))
