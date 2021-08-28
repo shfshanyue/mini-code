@@ -172,13 +172,13 @@ const { pathToRegexp } = require('path-to-regexp')
 pathToRegexp('/')
 //=> /^\/[\/#\?]?$/i
 
+// 可用以匹配前缀路由
 p.pathToRegexp('/', [], { end: false })
 //=> /^\/(?:[\/#\?](?=[]|$))?/i
 
 // 对于参数，通过捕获组来捕获参数
 pathToRegexp('/api/users/:id')
 //=> /^\/api\/users(?:\/([^\/#\?]+?))[\/#\?]?$/i
-
 ```
 
 有了正则，关于匹配中间件的逻辑水到渠成，代码如下

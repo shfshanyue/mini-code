@@ -1,4 +1,7 @@
+// [http 模块](https://nodejs.org/api/http.html)，构建 Node 框架的核心 API
 const http = require('http')
+
+// [path-to-regexp](https://github.com/pillarjs/path-to-regexp)，用以将 `/user/:name` 类参数路由转化为正则表达式
 const { pathToRegexp, regexpToFunction, match } = require('path-to-regexp')
 
 class Application {
@@ -136,7 +139,7 @@ class Layer {
     this.handle = handle
     this.options = options
     this.keys = []
-    // 根据 path，生政正则表达式
+    // 根据 path，生成正则表达式
     this.re = pathToRegexp(path, this.keys, options)
   }
 
