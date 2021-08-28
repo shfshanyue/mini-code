@@ -2,7 +2,9 @@ const http = require('http')
 const router = require('.')
 
 router.get('/api/users/:userId', (req, res) => {
-  res.end('hello, world')
+  res.end(JSON.stringify({
+    userId: req.params.userId
+  }))
 })
 
 const server = http.createServer((req, res) => {
