@@ -2,13 +2,25 @@
 
 > 仓库：[mini-koa](https://github.com/shfshanyue/mini-code/tree/master/code/koa)
 
-当我们在深入学习一个框架或者库时，为了了解它的思想及设计思路，为了更好地使用和避免无意的 Bug，源码研究可以做到这些。
+大家好，我是山月。
 
-对于 `koa` 这种极为简单，而应用却很广泛的框架/库，莫不如是。
+Koa 的源码通俗易懂，仅仅有四个文件，Koa 的下载量奇高，是最受欢迎的服务端框架之一。Koa 也是我最推荐阅读源码源码的库或框架。
 
-为了验证我们是否已足够了解它，可以实现一个仅具备核心功能的迷你的库。正所谓，麻雀虽小，五脏俱全。
+这里山月使用四十上代码实现一个最简化的 Koa。
 
-山月在这里只用**四十行代码实现一个小型的却具有其核心功能的 koa。**
+## 山月的代码实现
+
+代码置于 [shfshanyue/mini-code:code/koa](https://github.com/shfshanyue/mini-code/blob/master/code/koa/index.js)
+
+可直接读源码，基本每一行都有注释。
+
+使用 `npm run example` 或者 `node example` 可运行示例代码
+
+``` bash
+$ npm run example
+```
+
+## 演示与示例
 
 以下是一个 koa 核心功能洋葱模型最简化也是最经典的示例：
 

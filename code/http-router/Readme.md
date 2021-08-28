@@ -1,10 +1,10 @@
-# [WIP]如何实现一个最小版 HTTP Server Router
+# 如何实现一个最小版 HTTP Server Router
 
 > 仓库：[mini-http-router](https://github.com/shfshanyue/mini-code/tree/master/code/http-router/)
 
 大家好，我是山月。
 
-实现一个最简的服务端路由，仅需十五行代码。
+实现一个最简的服务端路由，仅需二十行代码。
 
 欲知如何，请往下看。
 
@@ -20,6 +20,10 @@
 # 或者直接 node example.js
 $ npm run example
 ```
+
+1. 当访问 `/api/users/10086` 时，将正常响应数据 `{ userId: 10086 }`
+1. 当访问 `/v2/randomxxxxx` 时，将相应 `hello, v2`
+1. 当访问 `/api/404` 时，将返回 404 状态码
 
 ## 目标与示例
 
@@ -217,3 +221,9 @@ const router = {
 
 module.exports = router
 ```
+
+## 结语
+
+完。
+
+等一下，记得晚上要好好吃饭。

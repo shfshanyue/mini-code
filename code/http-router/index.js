@@ -11,7 +11,7 @@ const router = {
     const matchRoute = match(path, { decode: decodeURIComponent, end: false, ...options })
 
     // 注册路由，整理数据结构添加入路由数组
-    this.routes.push({ match: matchRoute, handleRequest, method: options.method || 'GET' })
+    this.routes.push({ match: matchRoute, handleRequest, method: options?.method || 'GET' })
   },
   // 注册路由，请求方法为 GET
   get (path, handleRequest) {

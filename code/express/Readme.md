@@ -316,4 +316,4 @@ function dispatch (req, res, done) {
 
 完。
 
-记得吃早饭。
+等一下，记得吃早饭。

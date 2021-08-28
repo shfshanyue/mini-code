@@ -7,6 +7,10 @@ router.get('/api/users/:userId', (req, res) => {
   }))
 })
 
+router.use('/v2', (req, res) => {
+  res.end('hello, v2')
+})
+
 const server = http.createServer((req, res) => {
   router.lookup(req, res)
 })
