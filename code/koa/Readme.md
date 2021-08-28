@@ -1,4 +1,4 @@
-# 如何实现一个 Koa
+# 如何实现一个最小版 Koa
 
 > 仓库：[mini-koa](https://github.com/shfshanyue/mini-code/tree/master/code/koa)
 

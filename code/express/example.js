@@ -1,6 +1,11 @@
 const express = require('.')
 
 const app = express()
+const sleep = s => new Promise((resolve) => setTimeout(resolve, s))
+
+app.get('/wait', (req, res) => {
+  sleep(3000).then(() => res.end('hello, world'))
+})
 
 app.use('/api',
   (req, res, next) => {
