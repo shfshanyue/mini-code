@@ -77,8 +77,6 @@ function addVnodes (element, children, startIndex, endIndex) {
 //   eventListenersModule,
 // ]);
 //
-
-// 
 // 对于更新而言，ele.props = newVnode.props 可暴力解决，但有时可能效率过低。分一下三种情况进行讨论
 //
 // 1. 增: 旧节点无，新节点有。 ele.props = newVnode.props
@@ -108,7 +106,6 @@ function updateProps (element, oldVnode, newVnode) {
   // 示例二:
   // { color: 'red', fontSize: '20px' } => { backgroundColor: 'red', fontSize: '18px' }
   function updateStyle () {
-    const oldStyle = oldVnode.props?.style
     const newStyle = newVnode.props?.style || {}
 
     element.style = Object.entries(newStyle).reduce((acc, [key, value]) => {
