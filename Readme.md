@@ -11,7 +11,8 @@
 + [mini-koa](./code/koa/)
 + [mini-http-router](./code/http-router/)
 + [mini-express](./code/express/)
-+ [mini-webpack](./code/webpack/)
++ [mini-webpack (WIP)](./code/webpack/)
++ [mini-vdom (WIP)](./code/vdom/)
 
 由于目前浏览器对 ESM 已支持良好，对于客户端相关源码使用 ESM 书写，比如 vDOM、React 等。而对于服务端使用 CommonJS 书写，如 koa、express 等。
 
@@ -23,6 +24,15 @@
 + `example/`
 
 关于查看及运行示例，请使用命令 `npm run example`
+
+## 与我交流
+
+添加我的微信 `shanyue94`:
+
++ 拉你进仓库对应的源码交流群，和 5000+ 小伙伴们一起交流源码
++ 山月的原创文章与分享
+
+<img src="https://shanyue.tech/wechat.jpeg" width="200">
 
 ## TODO
 
@@ -39,12 +49,3 @@
 + dataloader
 + mustable
 + parser (re/js/css/md)
-
-## 与我交流
-
-添加我的微信 `shanyue94`:
-
-+ 拉你进仓库对应的源码交流群，和 5000+ 小伙伴们一起交流源码
-+ 山月的原创文章与分享
-
-<img src="https://shanyue.tech/wechat.jpeg" width="200">

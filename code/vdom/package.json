@@ -1,0 +1,11 @@
+{
+  "name": "vdom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "example": "serve ."
+  },
+  "author": "shfshanyue",
+  "license": "ISC"
+}

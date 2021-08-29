@@ -100,7 +100,8 @@ const routes = [
     handleRequest: (req, res) => {}
   },
   {
-    path: '/api/users/:id',
+    // 此处路由携带有参数 userId
+    path: '/api/users/:userId',
     method: 'GET',
     handleRequest: (req, res) => {}
   }
@@ -142,16 +143,40 @@ pathToRegexp('/api/users/:id')
 
 ## 路由的数据结构
 
-为路由增加一个方法，用以匹配参数，每次处理请求时，将参数解析并携带到 `req.params` 中。
+使用正则去匹配每次请求的路径，为路由添加一个字段 `re`，根据 `pathToRegexp` 生成正则表达式，此时的数据结构如下所示:
+
+``` js
+const routes = [
+  {
+    path: '/api',
+    method: 'GET',
+    re: pathToRegexp('/api'),
+    handleRequest: (req, res) => {}
+  },
+]
+
+function lookup (req, res) {
+  return routes.find(route => route.re.test(req.url) && route.method === req.method)
+}
+```
+
+当处理 `/api/users/:userId` 等参数路由时，为路由增加一个方法，用以匹配参数，每次处理请求时，将参数解析并携带到 `req.params` 中。
 
 恰好，`path-to-regexp` 可以使用 `match` 直接解析参数，原理是**使用带有捕获组的正则去匹配请求路径**。
 
 ``` js
 const { match } = require('path-to-regexp')
-const matchRoute = match(path, { decode: decodeURIComponent, end: false, ...options })
+
+// 将解析: /api/users/10086 -> { userId: 10086 }
+const matchRoute = match('/api/users/:userId', { decode: decodeURIComponent })
+
+//=> { params: { userId: 10086 } }
+matchRoute('/api/users/10086')
 ```
 
-最终路由的数据结构如下所示:
+我们将请求是否能匹配某个路由进行抽象为 `match`，最终路由的数据结构如下所示:
+
+> 在生产环境中，每个路由都会在注册时生成正则表达式，当请求来临时，将根据该正则表达式进行匹配并针对参数路由生成 params
 
 ``` js
 const routes = [
