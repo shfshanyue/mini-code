@@ -200,7 +200,9 @@ class OutgoingMessage extends Stream {
     this.socket.cork()
 
     this._send(chunk, encoding, callback)
-    this._send('', 'latin1', callback)
+    this._send('', 'latin1', () => {
+      this.emit('finish')
+    })
 
     // 把暖壶瓶子的水全部倒出来进行处理
     this.socket._writableState.corked = 1
@@ -220,6 +222,10 @@ class ServerResponse extends OutgoingMessage {
 
     // 该响应报文是否为 chunkedEncoding，即响应头: transfer-encoding: chunked
     this.chunkedEncoding = false
+
+    this.on('finish', () => {
+      this.socket.end()
+    })
   }
 
   _implicitHeader(statusCode) {
@@ -228,12 +234,12 @@ class ServerResponse extends OutgoingMessage {
 
   writeHead(statusCode) {
     this.statusCode = statusCode
-    const statusLine = `HTTP/1.1 ${statusCode} ${this.statusMessage}${CRLF}`
+    const statusLine = `HTTP/1.1 ${statusCode} ${STATUS_CODES[statusCode]}${CRLF}`
     let header = statusLine
     if (this._contentLength) {
       header += 'Content-Length: ' + this._contentLength + CRLF
     } else if (this._removedTE) {
-      header += 'Transfer-Encoding: chunked\r\n';
+      header += 'Transfer-Encoding: chunked' + CRLF
       this.chunkedEncoding = true;
     }
     this._header = header + CRLF
@@ -249,6 +255,7 @@ class HTTPServer extends net.Server {
     this.on('request', requestListener)
     this.on('connection', socket => this.connectionListener(socket));
 
+    this.socket = null
     this.timeout = 0
     this.keepAliveTimeout = 5000
     this.maxHeadersCount = null
@@ -258,18 +265,19 @@ class HTTPServer extends net.Server {
 
   // 当解析完本次请求的报文时，生成 req/res，进入监听请求的回调函数中，即 requestListener
   // 该函数，在 http_parser 解析完 header 时，回调触发
-  onIncoming(socket, req) {
+  onIncoming(req) {
     const res = new ServerResponse(req)
 
     // 触发事件 `request`，当接收到 request 时，进入 requestListener 回调，即 HTTP Server 的入口函数
     this.emit('request', req, res)
   }
 
+  // 当每次客户端与服务端建立连接时，触发该监听器
   connectionListener(socket) {
     this.socket = socket
 
     const parser = new HTTPParser(socket)
-    parser.onIncoming = this.onIncoming.bind(this, socket)
+    parser.onIncoming = this.onIncoming.bind(this)
     parser.parser()
   }
 

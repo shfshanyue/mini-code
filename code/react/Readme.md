@@ -32,6 +32,7 @@ export const HostComponent = 5;
 
 ``` js
 export type Fiber = {|
+  // 表示一个 `ReactElement` 的类型，以数字表示，以下列出最常见的几种类型。
   tag: WorkTag,
 
   // 如 div、button 等，也可以是 React 组件的名称，如 App()、HomePage() 等
@@ -69,7 +70,7 @@ export type Fiber = {|
   subtreeFlags: Flags,
   deletions: Array<Fiber> | null,
 
-  // Singly linked list fast path to the next fiber with side-effects.
+  // 关于存在副作用的 Fiber 链表，可以快速遍历完所有带有副作用的 FiberNode
   nextEffect: Fiber | null,
 
   // The first and last fiber with side-effect within this subtree. This allows
@@ -81,44 +82,9 @@ export type Fiber = {|
   lanes: Lanes,
   childLanes: Lanes,
 
-  // This is a pooled version of a Fiber. Every fiber that gets updated will
-  // eventually have a pair. There are cases when we can clean up pairs to save
-  // memory if we need to.
+  // 每一个 FiberNode 都有一个成对的 alternate 
   alternate: Fiber | null,
 
-  // Time spent rendering this Fiber and its descendants for the current update.
-  // This tells us how well the tree makes use of sCU for memoization.
-  // It is reset to 0 each time we render and only updated when we don't bailout.
-  // This field is only set when the enableProfilerTimer flag is enabled.
-  actualDuration?: number,
-
-  // If the Fiber is currently active in the "render" phase,
-  // This marks the time at which the work began.
-  // This field is only set when the enableProfilerTimer flag is enabled.
-  actualStartTime?: number,
-
-  // Duration of the most recent render time for this Fiber.
-  // This value is not updated when we bailout for memoization purposes.
-  // This field is only set when the enableProfilerTimer flag is enabled.
-  selfBaseDuration?: number,
-
-  // Sum of base times for all descendants of this Fiber.
-  // This value bubbles up during the "complete" phase.
-  // This field is only set when the enableProfilerTimer flag is enabled.
-  treeBaseDuration?: number,
-
-  // Conceptual aliases
-  // workInProgress : Fiber ->  alternate The alternate used for reuse happens
-  // to be the same as work in progress.
-  // __DEV__ only
-
-  _debugSource?: Source | null,
-  _debugOwner?: Fiber | null,
-  _debugIsCurrentlyTiming?: boolean,
-  _debugNeedsRemount?: boolean,
-
-  // Used to verify that the order of hooks does not change between renders.
-  _debugHookTypes?: Array<HookType> | null,
 |};
 ```
 
@@ -148,6 +114,8 @@ export const Placement = /*                    */ 0b00000000000000000000010;
 // 4
 export const Update = /*                       */ 0b00000000000000000000100;
 ```
+
+## EffectList
 
 ## render 时做了什么？
 

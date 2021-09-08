@@ -11,8 +11,8 @@
 + [mini-koa](https://github.com/shfshanyue/mini-code/tree/master/code/koa)
 + [mini-http-router](https://github.com/shfshanyue/mini-code/tree/master/code/http-router)
 + [mini-express](https://github.com/shfshanyue/mini-code/tree/master/code/express)
-+ [mini-webpack (WIP)](https://github.com/shfshanyue/mini-code/tree/master/code/webpack)
-+ [mini-vdom (WIP)](https://github.com/shfshanyue/mini-code/tree/master/code/vdom)
++ [mini-webpack (有代码，有注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/webpack)
++ [mini-vdom (有代码，有注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/vdom)
 
 由于目前浏览器对 ESM 已支持良好，对于客户端相关源码使用 ESM 书写，比如 vDOM、React 等。而对于服务端使用 CommonJS 书写，如 koa、express 等。
 
