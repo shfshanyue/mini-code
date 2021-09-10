@@ -13,6 +13,7 @@
 + [mini-express](https://github.com/shfshanyue/mini-code/tree/master/code/express)
 + [mini-webpack (有代码，有注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/webpack)
 + [mini-vdom (有代码，有注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/vdom)
++ [mini-native-http-server (有代码，无注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/native-http-server)
 
 由于目前浏览器对 ESM 已支持良好，对于客户端相关源码使用 ESM 书写，比如 vDOM、React 等。而对于服务端使用 CommonJS 书写，如 koa、express 等。
 
@@ -69,6 +70,7 @@ $ npm run example
 
 ## TODO
 
++ ws
 + native http server
 + native http client
 + lru cache
@@ -84,3 +86,5 @@ $ npm run example
 + dataloader
 + mustable
 + parser (re/js/css/md)
++ stream pipeline (nodejs)
+
