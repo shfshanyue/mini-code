@@ -112,14 +112,6 @@ class HTTPParser {
     this.parserOnHeadersComplete(version, headers, method, url)
   }
 
-  parserOnBody() {
-
-  }
-
-  parserOnMessageComplete() {
-
-  }
-
   parserOnHeadersComplete(version, headers, method, url) {
     const req = new IncomingMessage(this.socket)
     req.version = version
@@ -130,7 +122,6 @@ class HTTPParser {
     return this.onIncoming(req)
   }
 }
-
 
 class IncomingMessage extends Stream.Readable {
   constructor(socket) {
@@ -155,18 +146,25 @@ class IncomingMessage extends Stream.Readable {
   }
 }
 
+// 在 node.js 源码中，ServerResponse 与 ClientRequest 均继承了 OutgoingMessage
 class OutgoingMessage extends Stream {
   constructor() {
     super()
+
+    // 关于 header 的报文信息，当报文发送时赋值构建，如果有值代表 header 即将发送
     this._header = null
     this._headerSent = false
     this._contentLength = 0
     this._hasBody = true
     this._onPendingData = () => { }
+
+    // 存储 header 的键值对
+    this.headers = Object.create(null)
     this.socket = null
     this.outputSize = 0
     this.finished = false
     this.outputData = []
+    this._last = false
   }
 
   _writeRaw(data, encoding, callback) {
@@ -188,16 +186,24 @@ class OutgoingMessage extends Stream {
   }
 
   write(chunk, encoding, callback) {
+    if (!this._header) {
+      this._implicitHeader(200)
+    }
     this._send(chunk, encoding, callback)
+  }
+
+  setHeader(key, value) {
+    this.headers[key.toLowerCase()] = value
   }
 
   end(chunk, encoding, callback) {
     if (!this._header) {
+      this._contentLength = Buffer.byteLength(chunk)
       this._implicitHeader(200)
     }
 
-    // 拿暖壶瓶子接水，接水满了统一处理
-    this.socket.cork()
+    // // 拿暖壶瓶子接水，接水满了统一处理
+    // this.socket.cork()
 
     this._send(chunk, encoding, callback)
     this._send('', 'latin1', () => {
@@ -205,8 +211,8 @@ class OutgoingMessage extends Stream {
     })
 
     // 把暖壶瓶子的水全部倒出来进行处理
-    this.socket._writableState.corked = 1
-    this.socket.uncork()
+    // this.socket._writableState.corked = 1
+    // this.socket.uncork()
 
     this.finished = true
   }
@@ -215,7 +221,6 @@ class OutgoingMessage extends Stream {
 class ServerResponse extends OutgoingMessage {
   constructor(req) {
     super()
-    this._contentLength = null
     this._removedTE = false
     this.statusCode = 200
     this.socket = req.socket
@@ -223,6 +228,7 @@ class ServerResponse extends OutgoingMessage {
     // 该响应报文是否为 chunkedEncoding，即响应头: transfer-encoding: chunked
     this.chunkedEncoding = false
 
+    // 当处理完响应报文时触发，onFinish 在 end 中处理完最后一个报文时触发
     this.on('finish', () => {
       this.socket.end()
     })
@@ -232,16 +238,25 @@ class ServerResponse extends OutgoingMessage {
     this.writeHead(statusCode)
   }
 
+  // 生成 HTTP 响应头的报文
   writeHead(statusCode) {
     this.statusCode = statusCode
-    const statusLine = `HTTP/1.1 ${statusCode} ${STATUS_CODES[statusCode]}${CRLF}`
-    let header = statusLine
+
+    let header = `HTTP/1.1 ${statusCode} ${STATUS_CODES[statusCode]}${CRLF}`
+
+    header += 'Date: ' + new Date().toUTCString() + CRLF
+    
+    // 相应地，为该 socket 设置 5s 的超时
+    // header += `Connection: keep-alive${CRLF}`
+    // header += `Keep-Alive: timeout=5}${CRLF}`
+
     if (this._contentLength) {
       header += 'Content-Length: ' + this._contentLength + CRLF
     } else if (this._removedTE) {
       header += 'Transfer-Encoding: chunked' + CRLF
       this.chunkedEncoding = true;
     }
+
     this._header = header + CRLF
   }
 }
@@ -263,7 +278,7 @@ class HTTPServer extends net.Server {
     this.requestTimeout = 0
   }
 
-  // 当解析完本次请求的报文时，生成 req/res，进入监听请求的回调函数中，即 requestListener
+  // 当解析完本次请求的报文时触发此事件，生成 req/res，进入监听请求的回调函数中，即 requestListener
   // 该函数，在 http_parser 解析完 header 时，回调触发
   onIncoming(req) {
     const res = new ServerResponse(req)
