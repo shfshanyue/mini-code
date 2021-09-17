@@ -68,6 +68,36 @@ $ npm run example
 
 <img src="https://shanyue.tech/wechat.jpeg" width="200">
 
+## 推荐阅读源码清单
+
+以下源码按次序，从易到难进行阅读，否则碰到大块头(比如 React)，读不下去，容易怀疑自我，从简单的开始读起，有助于培养自信心
+
+### 偏客户端
+
++ [ms](https://github.com/vercel/ms): 时间转换器，Vercel 出品，周下载量 8000 万，几乎是 npm 下载量最高的 package 之一，从它看起，让你知道看源码/发包其实也很简单。
++ [lru-cache](https://github.com/isaacs/node-lru-cache): LRU Cache，前端及服务端框架中的常用依赖。
++ [tsdx](https://github.com/formium/tsdx): 零配置的 npm 库开发利器，与 CRA 相似，不过它主要面向库开发者而非业务开发者，了解它是如何提供零配置功能，看懂默认配置做了那些优化，并了解它的所有工具链 (prettier、eslint、size、bundleanalyzer、rollup、typescript、storybook)。
++ [create-react-app](https://github.com/facebook/create-react-app): React 最广泛的脚手架，读懂三点。一，如何生成脚手架；二，如何实现 eject；三，了解 cra 的所有重要依赖，读懂默认 webpack 配置。
++ webpack (runtime code): 读懂两点。一、打包 cjs/esm 后的运行时代码；二、打包有 chunk 后的运行时代码。
++ [axios](https://github.com/axios/axios): 请求库，了解它是如何封装源码且如何实现拦截器的。
++ [immer](https://github.com/immerjs/immer): 不可变数据，可提升做深拷贝时的性能，可应用在 React 中。
++ [use-debounce](https://github.com/xnimorz/use-debounce): React 中的一个 debounce hook。减少 React 的渲染次数，可提升性能。
++ [react-virtualized](https://github.com/bvaughn/react-virtualized): React 中的虚拟列表优化，可提升性能。
++ [react-query](https://github.com/tannerlinsley/react-query): 用以请求优化的 react hooks，可提升性能。
++ [react-router](https://github.com/remix-run/react-router): React 最受欢迎的路由库
++ [redux/react-redux](https://github.com/reduxjs/redux): React 最受欢迎的状态库
++ [vite](https://github.com/vitejs/vite): 秒级启动及热更行，可大幅提升开发体验。
++ [vue3](https://github.com/vuejs/vue-next): 最难的放到最后边，读懂 vue3 的性能优化体验在哪些方面。
++ [react](https://github.com/facebook/react): 最难的放到最后边，读懂 Fiber 及其它所提供的性能优化。
+
+### 偏服务端
+
++ [koa](https://github.com/koajs/koa)
++ [body-parser](https://github.com/stream-utils/raw-body): express 甚至是大部分服务端框架所依赖的用以解析 body 的库
++ [next](https://github.com/vercel/next.js)
++ [ws](https://github.com/websockets/ws): 了解 websocket 是如何构造 Frame 并发送数据的 (在此之前可阅读 node/http 源码)
++ [node](https://github.com/nodejs/node): 最难的放到最后边
+
 ## TODO
 
 + ws
