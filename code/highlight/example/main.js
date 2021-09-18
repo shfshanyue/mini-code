@@ -1,0 +1,1 @@
+import Prisma from '../index.js'
