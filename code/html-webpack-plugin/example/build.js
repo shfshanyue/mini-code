@@ -2,14 +2,19 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('..');
 
 const compiler = webpack({
-  context: __dirname,
   entry: './index.js',
   output: {
-    filename: 'main.[contenthash:8].js'
+    filename: '[name].[contenthash:8].js',
+    clean: true
+  },
+  optimization: {
+    runtimeChunk: true
   },
   plugins: [
-    new HtmlWebpackPlugin()
-  ]
+    new HtmlWebpackPlugin({
+      title: '山月的主页'
+    })
+  ],
 })
 
 compiler.run(() => {

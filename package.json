@@ -16,6 +16,6 @@
     "serve": "^12.0.1"
   },
   "dependencies": {
-    "webpack": "file:code/webpack"
+    "webpack": "^5.58.1"
   }
 }
