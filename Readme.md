@@ -11,7 +11,7 @@
 + [mini-koa](https://github.com/shfshanyue/mini-code/tree/master/code/koa)
 + [mini-http-router](https://github.com/shfshanyue/mini-code/tree/master/code/http-router)
 + [mini-express](https://github.com/shfshanyue/mini-code/tree/master/code/express)
-+ [mini-webpack (有代码，有注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/webpack)
++ [mini-webpack (有代码，有注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/bundle)
 + [mini-vdom (有代码，有注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/vdom)
 + [mini-native-http-server (有代码，无注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/native-http-server)
 
@@ -119,3 +119,5 @@ $ npm run example
 + parser (re/js/css/md)
 + stream pipeline (nodejs)
 + code highlighter
++ babel
++ html-webpack-plugin
