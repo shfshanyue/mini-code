@@ -13,6 +13,7 @@
 + [mini-express](https://github.com/shfshanyue/mini-code/tree/master/code/express)
 + [mini-webpack (有代码，有注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/bundle)
 + [mini-html-webpack-plugin (有代码，有注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/html-webpack-plugin)
++ [mini-json-loader (有代码，有注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/json-loader)
 + [mini-vdom (有代码，有注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/vdom)
 + [mini-native-http-server (有代码，无注释，无文章)](https://github.com/shfshanyue/mini-code/tree/master/code/native-http-server)
 
