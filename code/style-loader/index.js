@@ -1,6 +1,11 @@
-function insertStyleElement(options) {
-  const element = document.createElement('style')
-  options.setAttributes(element, options.attributes)
-  options.insert(element, options.options)
-  return element
+module.exports = function(source) {
+  return `
+function injectCss(css) {
+  const style = document.createElement('style')
+  style.appendChild(document.createTextNode(css))
+  document.head.appendChild(style)
+}
+
+injectCss(\`${source}\`)
+  `
 }

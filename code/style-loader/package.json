@@ -1,0 +1,14 @@
+{
+  "name": "mini-style-loader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "example": "cd example && node build.js"
+  },
+  "author": "shfshanyue",
+  "license": "ISC"
+}
