@@ -123,3 +123,6 @@ $ npm run example
 + code highlighter
 + babel
 + html-webpack-plugin
++ react-dnd
++ react-dropzone
+

@@ -8,6 +8,10 @@ Koa 的源码通俗易懂，仅仅有四个文件，Koa 的下载量奇高，是
 
 这里山月使用四十行代码实现一个最简化的 Koa。
 
+## 如何阅读及调试源码
+
+详见 [koa 源码调试](./koa.md)
+
 ## 山月的代码实现
 
 代码置于 [shfshanyue/mini-code:code/koa](https://github.com/shfshanyue/mini-code/blob/master/code/koa/index.js)
@@ -57,26 +61,35 @@ app.listen(3000)
 + Context: 服务器框架各种基本数据结构的封装，用以 http 请求解析及响应 (由于 Context 包容万物，所以也被称为垃圾桶...)
 + Middleware: 中间件，也是洋葱模型的核心机制
 
-我们开始逐步实现这三个模块：
+我们开始逐步实现这三个模块。
 
 ## 抛开框架，来写一个原生 server
 
-我们先基于 node 最基本的 `http API` 来启动一个 http 服务，并通过它来实现最简版的 koa，示例如下:
+我们先基于 node 最基本的 [HTTP API](https://nodejs.org/api/http.html) 来启动一个 http 服务，并通过它来实现最简版的 koa。
+
 
 ``` js
 const http = require('http')
 
-const server = http.createServer((req, res) => {
-  res.end('hello, world')
-})
+const server = http.createServer((req, res) => { res.end('hello, world') })
 
 server.listen(3000)
 ```
 
-最简版的 `koa` 示例如下，我把最简版的这个 koa 命名为 `koa-mini`
+其中最重要的函数 `http.createServer` 用以创建一个 http 服务，它将会回调获取到两个最重要的参数: Request/Response 关于请求及响应的一切。
+
+``` ts
+// 创建一个 http 服务，在回调函数即 requestListener 中获取 req/res
+function createServer(requestListener?: RequestListener): Server;
+
+// req、res 分别是一个可读流与可写流
+type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
+```
+
+假设已完成最简版的 `koa` 示例如下，我把最简版的这个 koa 命名为 `mini-koa`
 
 ``` js
-const Koa = require('koa-mini')
+const Koa = require('mini-koa')
 const app = new Koa()
 
 app.use(async (ctx, next) => {
@@ -101,12 +114,14 @@ app.listen(3000)
 1. `new Koa`: 构建 Appliaction
 1. `app.use/ctx`: 构建中间件注册函数与 Context
 
+以下将逐步实现:
+
 ## 构建 Application
 
-首先完成 `Appliacation` 的大体框架：
+首先通过 `http.createServer` 构造完成 `Appliacation` 的大体框架：
 
-1. `app.listen`: 处理请求及响应，并且监听端口
-1. `app.use`: 中间件注册函数，目前阶段为处理请求并完成响应
+1. `app.listen`: 封装 `http.createServer`，处理请求及响应，并且监听端口
+1. `app.use`: 中间件注册函数，目前阶段仅处理请求并完成响应
 
 只有简单的十几行代码，示例如下：
 
@@ -144,11 +159,15 @@ app.listen(3000)
 
 由于 `app.use` 的回调函数依然是原生的 `http.crateServer` 回调函数，而在 `koa` 中回调参数是一个 `Context` 对象。
 
-下一步要做的将是构建 `Context` 对象。
+下一步要做的将是使用 `req/res` 构建 `Context` 对象。
 
 ## 构建 Context
 
-在 koa 中，`app.use` 的回调参数为一个 `ctx` 对象，而非原生的 `req/res`。因此在这一步要构建一个 `Context` 对象，并使用 `ctx.body` 构建响应：
+在 koa 中，`app.use` 的回调参数为一个 `ctx` 对象，而非原生的 `req/res`。
+
+这一步将构建一个 `Context` 对象，并使用 `ctx.body` 响应数据。
+
+核心 API 如下:
 
 + `app.use(ctx => ctx.body = 'hello, world')`: 通过在 `http.createServer` 回调函数中进一步封装 `Context` 实现
 + `Context(req, res)`: 以 `request/response` 数据结构为主体构造 Context 对象
@@ -220,7 +239,7 @@ await fn(ctx)
 await compose(this.middlewares, ctx)
 ```
 
-先不论 `compose` 的实现，此时完整代码如下:
+先不论 `compose` 的实现，此时先完成中间件函数的收集工作:
 
 ``` js
 const http = require('http')
@@ -287,14 +306,13 @@ middleware(ctx, next(0))
 
 ``` js
 // dispatch(i) 代表执行第 i 个中间件
-
 const dispatch = (i) => {
   return middlewares[i](ctx, () => dispatch(i+1))
 }
 dispatch(0)
 ```
 
-`dispatch(i)` 代表执行第 i 个中间件，而 `next()` 函数将会执行下一个中间件 `dispatch(i+1)`，于是我们使用递归轻松地完成了洋葱模型
+**`dispatch(i)` 代表执行第 i 个中间件，而 `next()` 函数将会执行下一个中间件 `dispatch(i+1)`，于是我们使用递归轻松地完成了洋葱模型。**
 
 此时，再把递归的终止条件补充上: 当最后一个中间件函数执行 `next()` 时，直接返回
 
