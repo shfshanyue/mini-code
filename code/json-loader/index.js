@@ -4,7 +4,11 @@
 // 使用 loader 写一个 json-loader，最能理解 webpack 中 loader 的作用
 
 module.exports = function (source) {
-  const json = typeof source === 'string' ? source : JSON.stringify(source)
+  let json = typeof source === 'string' ? source : JSON.stringify(source)
+  json = {
+    __user: 'shanyue',
+    ...JSON.parse(json)
+  }
 
-  return `module.exports = ${json}`
+  return `module.exports = ${JSON.stringify(json)}`
 }

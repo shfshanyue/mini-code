@@ -99,6 +99,7 @@ $ npm run example
 + [body-parser](https://github.com/stream-utils/raw-body): express 甚至是大部分服务端框架所依赖的用以解析 body 的库
 + [next](https://github.com/vercel/next.js)
 + [ws](https://github.com/websockets/ws): 了解 websocket 是如何构造 Frame 并发送数据的 (在此之前可阅读 node/http 源码)
++ [apollo-server](https://github.com/apollographql/apollo-server): GraphQL 框架，值得一看
 + [node](https://github.com/nodejs/node): 最难的放到最后边
 
 ## TODO
