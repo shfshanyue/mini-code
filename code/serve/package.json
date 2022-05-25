@@ -1,0 +1,17 @@
+{
+  "name": "serve",
+  "version": "1.0.0",
+  "description": "> 仓库：[mini-express](https://github.com/shfshanyue/mini-code/tree/master/code/express/)",
+  "main": "index.ts",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "example": "npx ts-node index.ts example -p 8000"
+  },
+  "author": "shfshanyue",
+  "license": "ISC",
+  "dependencies": {
+    "arg": "^5.0.1"
+  }
+}
