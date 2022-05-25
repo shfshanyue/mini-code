@@ -1,13 +1,13 @@
 import GraphQLServer from './index.mjs'
 
 const typeDefs = `
-  type Book {
+  type Todo {
     title: String
     author: String
   }
 
   type Query {
-    books: [Book]
+    todos: [Todo]
   }
 `
 
