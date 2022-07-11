@@ -69,7 +69,7 @@ class Request {
   next () {
     if (this.count < this.concurrency && this.queue.length) {
       const [resolve, reject, url] = this.queue.shift()
-      fetch(url).then(resolve).catch(reject)
+      this.run(url).then(resolve).catch(reject)
     }
   }
 
