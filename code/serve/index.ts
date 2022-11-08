@@ -39,6 +39,7 @@ function responseNotFound(res: ServerResponse) {
   res.end('NNNNNNot Found')
 }
 
+// mime: 
 export default async function handler(req: IncomingMessage, res: ServerResponse, config: Config) {
   const pathname = new URL('http://localhost:3000' +  req.url ?? '').pathname
 
