@@ -39,7 +39,7 @@ $ npm i
 
 # 在 monorepo 中运行某个源码示例
 # 或者进入代码目录，再运行示例: cd code/express && npm run example
-$ npm run example -w express
+$ npm run example -w mini-express
 ```
 
 如果你对 `monorepo` 不了解:
