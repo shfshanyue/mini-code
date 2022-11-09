@@ -1,8 +1,8 @@
-# json loader
+# yaml loader
 
 ## 山月的代码实现
 
-代码置于 [shfshanyue/mini-code:code/json-loader](https://github.com/shfshanyue/mini-code/blob/master/code/json-loader/index.js)
+代码置于 [shfshanyue/mini-code:code/yaml-loader](https://github.com/shfshanyue/mini-code/blob/master/code/json-loader/index.js)
 
 可直接读源码，基本每一行都有注释。
 
