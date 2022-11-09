@@ -9,7 +9,7 @@ const compiler = webpack({
   },
   module: {
     rules: [{
-      // webpack 将会自动 require('..') 最为 loader
+      // webpack 将会自动 require('..') 做为 loader
       use: '..',
       // 为了避免与内置的 json-loader 冲突，因此此处命名为 json3
       test: /\.json3$/,

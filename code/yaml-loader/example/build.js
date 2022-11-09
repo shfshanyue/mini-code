@@ -9,7 +9,7 @@ const compiler = webpack({
   },
   module: {
     rules: [{
-      // webpack 将会自动 require('..') 最为 loader
+      // webpack 将会自动 require('..') 作为 loader
       use: '..',
       test: /\.yaml$/,
       type: 'json'
