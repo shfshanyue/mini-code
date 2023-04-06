@@ -64,12 +64,12 @@ $ npm run example
 
 ## 与我交流
 
-添加我的微信 `shanyue94`:
+添加我的微信 `shanyue-bot`:
 
 + 拉你进仓库对应的源码交流群，和 5000+ 小伙伴们一起交流源码
 + 山月的原创文章与分享
 
-<img src="https://shanyue.tech/wechat.jpeg" width="200">
+<img src="https://static.shanyue.tech/images/23-03-22/clipboard-5137.800093.webp" width="300">
 
 ## 推荐阅读源码清单
 
@@ -78,7 +78,7 @@ $ npm run example
 ### 偏客户端
 
 + [ms](https://github.com/vercel/ms): 时间转换器，Vercel 出品，周下载量 8000 万，几乎是 npm 下载量最高的 package 之一，从它看起，让你知道看源码/发包其实也很简单。
-+ [github markdown style](): 以为很简单，实际上很难。锻炼 CSS 的最好方法，就是给 markdown 写一个主题。
++ [github markdown style](https://github.com/sindresorhus/github-markdown-css): 以为很简单，实际上很难。锻炼 CSS 的最好方法，就是给 markdown 写一个主题。
 + [lru-cache](https://github.com/isaacs/node-lru-cache): LRU Cache，前端及服务端框架中的常用依赖。
 + [tsdx](https://github.com/formium/tsdx): 零配置的 npm 库开发利器，与 CRA 相似，不过它主要面向库开发者而非业务开发者，了解它是如何提供零配置功能，看懂默认配置做了那些优化，并了解它的所有工具链 (prettier、eslint、size、bundleanalyzer、rollup、typescript、storybook)。
 + [create-react-app](https://github.com/facebook/create-react-app): React 最广泛的脚手架，读懂三点。一，如何生成脚手架；二，如何实现 eject；三，了解 cra 的所有重要依赖，读懂默认 webpack 配置。
